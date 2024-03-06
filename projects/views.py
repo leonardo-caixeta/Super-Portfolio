@@ -22,9 +22,11 @@ class ProfileViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         if request.method == "GET":
             profile_id = kwargs.get("pk")
-            profile = Profile.objects.get(pk=profile_id)
+            profile = Profile.objects.get(id=profile_id)
             context = {"profile": profile}
+
             return render(request, "profile_detail.html", context)
+
         return super().retrieve(request, *args, **kwargs)
 
 
