@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Profile(models.Model):
@@ -19,6 +20,27 @@ class Project(models.Model):
     key_skill = models.CharField(max_length=50)
     profile = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name="profile")
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class CertifyingInstitution(models.Model):
+    name = models.CharField(max_length=100)
+    url = models.URLField(max_length=500)
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Certificate(models.Model):
+    name = models.CharField(max_length=100)
+    certifying_institution = models.ForeignKey(
+        CertifyingInstitution,
+        on_delete=models.CASCADE,
+    )
+    timestamp = models.DateTimeField(default=timezone.now)
+    profiles = models.ManyToManyField("Profile", related_name="certificates")
 
     def __str__(self) -> str:
         return self.name

@@ -1,13 +1,28 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.name }} - Perfil</title>
+</head>
+<body>
+    <h1>{{ profile.name }}</h1>
+    <p><strong>GitHub:</strong> <a href="{{ profile.github }}">{{ profile.github }}</a></p>
+    <p><strong>LinkedIn:</strong> <a href="{{ profile.linkedin }}">{{ profile.linkedin }}</a></p>
+    <p><strong>Bio:</strong> {{ profile.bio }}</p>
 
-{% block title %}
-User Profile
-{% endblock %}
+    <h2>Projetos:</h2>
+    <ul>
+        {% for project in profile.profile.all %}
+            <li>{{ project.name }} - {{ project.description }}</li>
+        {% endfor %}
+    </ul>
 
-{% block content %}
-<h1>User Profile</h1>
-<p><strong>Name:</strong> {{ profile.name }}</p>
-<p><strong>Github:</strong> <a href="{{ profile.github }}">{{ profile.github }}</a></p>
-<p><strong>LinkedIn:</strong> <a href="{{ profile.linkedin }}">{{ profile.linkedin }}</a></p>
-<p><strong>Bio:</strong> {{ profile.bio }}</p>
-{% endblock %}
+    <h2>Certificados:</h2>
+    <ul>
+        {% for certificate in profile.certificates.all %}
+            <li>{{ certificate.name }} - {{ certificate.certifying_institution.name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
