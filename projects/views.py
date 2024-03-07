@@ -1,6 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import viewsets, permissions
 from .models import Certificate, CertifyingInstitution, Profile, Project
 from .serializers import (
     CertificateSerializer,
@@ -16,8 +15,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.request.method == "GET":
-            return [AllowAny()]
-        return [IsAuthenticated()]
+            return [permissions.AllowAny()]
+        return [permissions.IsAuthenticated()]
 
     def retrieve(self, request, *args, **kwargs):
         if request.method == "GET":
@@ -41,8 +40,8 @@ class CertificateViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.request.method in ["POST", "PUT", "PATCH", "DELETE"]:
-            return [IsAuthenticated()]
-        return [AllowAny()]
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
 
 
 class CertifyingInstitutionViewSet(viewsets.ModelViewSet):
@@ -51,5 +50,5 @@ class CertifyingInstitutionViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.request.method in ["POST", "PUT", "PATCH", "DELETE"]:
-            return [IsAuthenticated()]
-        return [AllowAny()]
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
